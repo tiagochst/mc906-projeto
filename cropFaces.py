@@ -7,10 +7,11 @@
 # Based on :
 # http://creatingwithcode.com/howto/face-detection-in-static-images-with-python/
 
-# Usage: python cropFaces.py <image_file>
+# Usage: python face_detect.py <image_file>
 
 import sys, os
 import Image
+import math
 from opencv.cv import *
 from opencv.highgui import *
 
@@ -20,7 +21,8 @@ typeCascade= [
     "types/haarcascade_frontalface_alt_tree.xml",
     "types/haarcascade_frontalface_alt.xml",
     "types/haarcascade_profileface.xml",
-    "types/lbpcascade_frontalface.xml"
+    "types/haarcascade_mcs_righteye.xml",
+    "types/haarcascade_mcs_lefteye.xml"
     ]
 
 def detectObjects(image):
@@ -53,6 +55,50 @@ def detectObjects(image):
       i=i+1
 
 
+  #using eyes to find a head
+  if(nFaces==0):
+    #right eye
+    cascade = cvLoadHaarClassifierCascade(
+      typeCascade[5],
+      cvSize(1,1))
+    reye = cvHaarDetectObjects(grayscale, cascade, storage,1.3, 3, 
+                               0, cvSize(5,5))
+    #left eye
+    cascade = cvLoadHaarClassifierCascade(
+      typeCascade[6],
+      cvSize(1,1))
+    leye = cvHaarDetectObjects(grayscale, cascade, storage,1.3, 3, 
+                               0, cvSize(5,5))
+    
+    for l in leye:
+      for r in reye:
+        # Is leyes the same as reyes? 
+        if(r.y != l.y  and (l.x - r.x) > 2):
+          rotate(l.y-r.y,l.x-r.x)
+          return 2 
+
+    if(nFaces==0):
+      return 0
+  return 1
+
+
+# rotate based upon un delta x and delta y
+def rotate(y,x):
+  im = Image.open(sys.argv[1])
+
+  # which is the angle of rotation
+  rad = math.atan2(y,x)
+  deg = math.degrees(-rad)
+
+  # rotade clockwise
+  im2 = im.rotate(deg) 
+
+  im2.save("r"+sys.argv[1])
+  # show output, is this correct?
+  im2.show()
+
+
+
 # Input:
 #    Coordinates of a face 
 #    Number of a face
@@ -67,8 +113,13 @@ def main():
     # open Image
     image = cvLoadImage(sys.argv[1]);
     # If there is a face in the object we will crop the face!
-    detectObjects(image)
+    found=detectObjects(image)
 
+    # If found = 2 original image was rotated
+    if(found==2):
+      image = cvLoadImage("r"+sys.argv[1]);
+      # If there is a face in the object we will crop the face!
+      found=detectObjects(image)
 
 if __name__ == "__main__":
   main()
