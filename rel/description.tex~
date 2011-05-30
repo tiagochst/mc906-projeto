@@ -1,0 +1,75 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+
+
+\usepackage{ae,aecompl}
+\usepackage{pslatex}
+\usepackage{epsfig}
+\usepackage{geometry}
+\usepackage{url}
+\usepackage{textcomp}
+\usepackage{ae}
+\usepackage{subfig}
+\usepackage{indentfirst}
+\usepackage{textcomp}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{verbatim}
+\include{abaco} 
+
+\begin{document}
+
+% CAPA
+  \thispagestyle{empty}
+  
+  \begin{minipage}[h]{0.10\linewidth}
+    \ABACO{1}{9}{6}{9}{0.5} 
+  \end{minipage}
+  \begin{minipage}[h!]{0.7\linewidth}
+    \vspace*{\fill}
+    \centering
+    {\large \textbf{UNIVERSIDADE~ESTADUAL~DE~CAMPINAS}}\\ 
+    {\large INSTITUTO~DE~COMPUTAÇÃO}                   
+    \vspace*{\fill} 
+  \end{minipage}
+    \\\vspace{0.5cm}
+  
+  \begin{center} 
+    \rule{11.0cm}{0.4pt}\vspace*{-\baselineskip}\vspace{-2.0pt}
+    \rule{11.0cm}{1.6pt} \vspace*{-\baselineskip}
+      {\Large \textsc{Reconhecimento de faces em redes sociais}}\vspace{3.2pt}
+    \rule{11.0cm}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} \rule{11.0cm}{1.6pt}\\
+    {\textsl{Proposta de projeto}}
+    \\\vspace{1cm}
+    \begin{tabular}{ll}
+      \textbf{Nome}: Carlos Eduardo Rosa Machado & \textbf{RA}: 059582\\
+      \textbf{Nome}: Douglas Alves Germano        &   \textbf{RA}: 060210\\
+      \textbf{Nome}: Tiago Chedraoui Silva        &       \textbf{RA}: 082941
+      
+    \end{tabular}
+  \end{center}
+  \vspace{0.5cm}
+  
+  \section*{Introdução}
+	É muito comum a situação em que uma pessoa tenta procurar alguém em redes sociais mas não conhece ou não lembra dados importantes sobre o indivíduo, como o seu nome, o seu endereço eletrônico ou o seu local de trabalho.
+
+	Entretanto, em alguns casos, a pessoa pode ter em mãos uma foto tirada com a outra em um seminário, um evento ou uma festa.
+
+	Nosso projeto consiste em utilizar essa foto para auxiliar a busca pela página do perfil desejado.
+
+\section*{Objetivo}
+
+Criar um sistema (e eventualmente um aplicativo) que, dado uma foto de entrada contendo uma face a ser procurada, retornará os perfis no Facebook com os rostos mais semelhantes ao objetivo dentre os amigos de amigos do usuário.
+
+\section*{ Descrição}
+	Construíremos um acervo de imagens provindas de diferentes fontes da internet, para que possamos utilizar durante o período de treinamento do sistema. Esta etapa consiste em criar um filtro baseado na média dos rostos.
+
+	Com o resultado do treinamento disponível, podemos então reconhecer uma nova foto e projetá-la sobre o filtro. Isto é importante para que ruídos, tais como iluminação e enquadramento na foto, sejam absorvidos e características relevantes da pessoa destacadas. Assim, podemos iniciar a busca e comparação com os demais usuários do Facebook, dado a rede limitada.
+
+	Conquanto, exibiremos um grupo de usuários que possuem maior semelhança entre a sua foto de perfil e a foto utilizada na busca. Além disto, o resultado pode ou não ser satisfatório, isto é, encontrar ou não o usuário, pois pode ser que a pessoa buscada não possua foto ou que ela não tenha conta no Facebook.
+
+
+
+\end{document}

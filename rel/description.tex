@@ -1,0 +1,121 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+
+
+\usepackage{ae,aecompl}
+\usepackage{pslatex}
+\usepackage{epsfig}
+\usepackage{geometry}
+\usepackage{url}
+\usepackage{textcomp}
+\usepackage{ae}
+\usepackage{subfig}
+\usepackage{indentfirst}
+\usepackage{textcomp}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{verbatim}
+\include{abaco} 
+
+
+ %\onehalfspacing
+  \doublespacing
+\begin{document}
+
+% CAPA
+  \thispagestyle{empty}
+  
+  \begin{minipage}[h]{0.10\linewidth}
+    \ABACO{1}{9}{6}{9}{0.5} 
+  \end{minipage}
+  \begin{minipage}[h!]{0.7\linewidth}
+    \vspace*{\fill}
+    \centering
+    {\large \textbf{UNIVERSIDADE~ESTADUAL~DE~CAMPINAS}}\\ 
+    {\large INSTITUTO~DE~COMPUTAÇÃO}                   
+    \vspace*{\fill} 
+  \end{minipage}
+    \\\vspace{0.5cm}
+  
+  \begin{center} 
+    \rule{11.0cm}{0.4pt}\vspace*{-\baselineskip}\vspace{-2.0pt}
+    \rule{11.0cm}{1.6pt} \vspace*{-\baselineskip}
+      {\Large \textsc{Reconhecimento de faces em redes sociais}}\vspace{3.2pt}
+    \rule{11.0cm}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} \rule{11.0cm}{1.6pt}\\
+    {\textsl{Proposta de projeto}}
+    \\\vspace{1cm}
+    \begin{tabular}{ll}
+      Carlos Eduardo Rosa Machado & \textbf{RA}: 059582\\
+       \multicolumn{2}{c}{\small \emph ra059582@students.ic.unicamp.br}  \\
+      Douglas Alves Germano        & \textbf{RA}: 060210\\
+      \multicolumn{2}{c}{\small \emph ra060210@students.ic.unicamp.br } \\
+      Tiago Chedraoui Silva        & \textbf{RA}: 082941\\
+      \multicolumn{2}{c}{\small \emph ra082941@students.ic.unicamp.br} \\
+    \end{tabular}
+  \end{center}
+  \vspace{0.5cm}
+ \tableofcontents
+\newpage 
+  \section{Introdução e Motivação}
+
+	Rede social é uma estrutura composta por indivíduos ou organizações, chamados de nós, que se conectam por um ou vários tipos de relações, tais como amizade, parentesco, interesses em comum, entre outras.
+	
+	O Facebook é uma rede social gratuita, fundada em 2004, e atualmente possui mais de 700 milhões de usuários ativos.
+
+	Uma pessoa pode criar um perfil na rede social, tornando-se um
+        usuário do sistema. Para a criação de um perfil, ela deve
+        fornecer informações pessoais como nome, localização, endereço
+        eletrônico, e outras que desejar. Entre as opções, o usuário
+        pode fornecer uma foto para ser mostrada no perfil, que
+        qualquer outro usuário terá acesso irrestrito e a
+        possibilidade de visualizá-la. Ainda assim, esta é uma prática
+        bastante utilizada pela maioria dos usuários, pois proporciona
+        fácil reconhecimento pelas demais pessoas. Além disso, o
+        usuário pode colocar outras fotos pessoais, para as quais
+        controlará o acesso, deixando restrito, por exemplo, apenas para aqueles que fazem parte da sua rede de relacionamentos no sistema.
+
+	Pelo próprio intuito da rede, um usuário cadastrado quer se conectar e se relacionar virtualmente com as pessoas que conhece, ou até mesmo conhecer pessoas novas, quando algum interesse mútuo ocorre.
+
+	Desta forma, o Facebook tem algumas ferramentas à disposição dos usuários, que permitem pessoas serem encontradas por outras usando alguma informação, tal como nome, endereço eletrônico ou endereço físico.
+
+	Por isso, a ambição do projeto está em criar uma nova
+        ferramenta, um novo meio para que as pessoas se encontrem e se
+        conheçam. Apesar do Facebook ter bons buscadores que encontram
+        facilmente uma pessoa, precisamos sempre ter alguma informação
+        da pessoa, que podemos não saber e não conseguir obter
+        rapidamente. Contudo, podemos ter uma foto, e é neste caso que
+        entra a nossa proposta de solução: buscar um perfil dado uma
+        foto.
+\newpage
+  \section{O problema}
+É muito comum a situação em que uma pessoa tenta procurar alguém em redes sociais mas não conhece ou não lembra dados importantes sobre o indivíduo, como o seu nome, o seu endereço eletrônico ou o seu local de trabalho.
+
+	Entretanto, em alguns casos, a pessoa pode ter em mãos uma foto tirada com a outra em um seminário, um evento ou uma festa.
+
+	Utilizando essa foto para auxiliar a busca pela página do perfil desejado, criou-se um sistema (e eventualmente um aplicativo) que, dado uma foto de entrada contendo uma face a ser procurada, retorna os perfis no Facebook com os rostos mais semelhantes ao objetivo dentre os amigos de amigos do usuário.
+
+	Inicialmente construiu-se um acervo de mais de 500 imagens provindas de diferentes perfis da prórpria rede social, que foram utilizadas durante o período de treinamento do sistema. Esta etapa consistiu em criar um filtro baseado na média dos rostos.
+
+	Com o resultado do treinamento disponível, podemos então reconhecer uma nova foto e projetá-la sobre o filtro. Isto é importante para que ruídos, tais como iluminação e enquadramento na foto, sejam absorvidos e características relevantes da pessoa destacadas. Assim, podemos iniciar a busca e comparação com os demais usuários do Facebook, dado a rede limitada.
+
+	Conquanto, exibiremos um grupo de usuários que possuem maior semelhança entre a sua foto de perfil e a foto utilizada na busca. Além disto, o resultado pode ou não ser satisfatório, isto é, encontrar ou não o usuário, pois pode ser que a pessoa buscada não possua foto ou que ela não tenha conta no Facebook.
+
+\section{Solução proposta}
+
+\section{Exprerimentos}
+
+\section{Conclusões}
+
+% ******************************************************
+% 		REFERENCIAS BIBLIOGRÁFICAS
+% ******************************************************
+%\section{Referências}
+\bibliographystyle{plain}
+\begin{small}
+  \bibliography{referencias}
+\end{small}
+
+
+\end{document}
