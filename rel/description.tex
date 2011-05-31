@@ -188,6 +188,25 @@ u_l=\sum_{k=1}^{M}(v_{lk}\Phi_k) \quad\quad\quad l = 1,...,M
 \end{equation}
 
 \subsection*{Interface:}
+Inicialmente, um usuário deverá fornecer uma foto contendo a pessoa a que deseja procurar. A partir da foto fornecida é feito uma busca por faces presentes nela e para cada face encontrada é fornecida a possibilidade de escolha de qual face deve-se procurar na rede social, caso nenhuma face seja encontrada, é fornecido ao usuário a possibilidade de escolha da face através de um retângulo ajustável nas proporções 4:3 (ver figura 1).
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.4]{samephoto}
+\caption{ Seleção da face na foto fornecida}
+\end{center}
+\end{figure}
+
+Após a seleção da face para busca, nosso usuário espera um tempo até que seja criada uma janela contendo as seis faces mais próximas encontradas (ver figura 2). O usuário terá a possibilidade de escolher das faces aquela que for seu o procurado, caso a face seja encontrada, ao clicar sobre a foto de perfil fornecida o usuário é redirecionado ao perfil dessa pessoa.
+Pode acontecer de nehuma das faces fornecida ser a pessoa que queremos encontrar, nesse caso a janela pode ser fechada.
+
+\begin{center}
+\begin{figure}[h!]
+\includegraphics[scale=0.5]{6maisproximos}
+\caption{Faces mais próximas}
+\end{figure}
+\end{center}
+
 \section{Exprerimentos}
 
 \section{Conclusões}
