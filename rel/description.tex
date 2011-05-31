@@ -17,6 +17,7 @@
 \usepackage{color}
 \usepackage{setspace}
 \usepackage{verbatim}
+\usepackage{amsmath}
 \include{abaco} 
 
 
@@ -90,20 +91,103 @@
         foto.
 \newpage
   \section{O problema}
-É muito comum a situação em que uma pessoa tenta procurar alguém em redes sociais mas não conhece ou não lembra dados importantes sobre o indivíduo, como o seu nome, o seu endereço eletrônico ou o seu local de trabalho.
 
-	Entretanto, em alguns casos, a pessoa pode ter em mãos uma foto tirada com a outra em um seminário, um evento ou uma festa.
+	Participar ativamente de uma rede social, tal qual o Facebook, está muito ligado em encontrar seus amigos online e fazer novos amigos, para assim trocar mensagens com os usuários, participar de eventos, estar presente em grupos, entre outras possibilidades. Por conseguinte, o problema consiste em conectar estes usuários, de modo que amigos recentes ou velhos amigos possam ser encontrados facilmente.
 
-	Utilizando essa foto para auxiliar a busca pela página do perfil desejado, criou-se um sistema (e eventualmente um aplicativo) que, dado uma foto de entrada contendo uma face a ser procurada, retorna os perfis no Facebook com os rostos mais semelhantes ao objetivo dentre os amigos de amigos do usuário.
+	É esperado que uma pessoa saiba, ou tenha anotado em algum lugar, informações básicas sobre seus amigos. Porém, nem sempre nos recordamos ou temos estes dados em mãos. Por exemplo, você acabou de conhecer uma pessoa, que por falta de tempo ou por distração, não perguntou o nome dela. Mas, como estavam numa festa e você tirou diversas fotos, acabou reconhecendo ela em uma das diversas fotos que nem se lembra de ter tirado. Assim, com as atuais ferramentas que o Facebook disponibiliza, você não seria capaz de encontrá-la facilmente, pois não sabe nada sobre a pessoa.
 
-	Inicialmente construiu-se um acervo de mais de 500 imagens provindas de diferentes perfis da prórpria rede social, que foram utilizadas durante o período de treinamento do sistema. Esta etapa consistiu em criar um filtro baseado na média dos rostos.
+A proposta deste projeto é incluir uma ferramenta diferente, que não precisa de qualquer tipo de informação sobre o indivíduo, mas que seja capaz de encontrá-lo por comparação da imagem alvo, esta que você possui na sua câmera, com as imagens dos perfis dos usuários.
 
-	Com o resultado do treinamento disponível, podemos então reconhecer uma nova foto e projetá-la sobre o filtro. Isto é importante para que ruídos, tais como iluminação e enquadramento na foto, sejam absorvidos e características relevantes da pessoa destacadas. Assim, podemos iniciar a busca e comparação com os demais usuários do Facebook, dado a rede limitada.
+	Ou seja, o usuário fornece a foto com o rosto da pessoa que deseja buscar, o sistema (e eventualmente um aplicativo) varre a rede procurando as imagens mais semelhantes e retorna os perfis que contém os rostos mais parecidos, e eventualmente, o perfil correto do usuário buscado.
 
-	Conquanto, exibiremos um grupo de usuários que possuem maior semelhança entre a sua foto de perfil e a foto utilizada na busca. Além disto, o resultado pode ou não ser satisfatório, isto é, encontrar ou não o usuário, pois pode ser que a pessoa buscada não possua foto ou que ela não tenha conta no Facebook.
+	De início, surgem dois problemas: encontrar uma face dado uma imagem e encontrar esta face em outras imagens. Dado que temos isto, uma ferramenta capaz de reconhecer as características de um ser humano e recortar seu rosto, e outra que faça a comparação das faces detectadas, surge um problema bônus: a imensa quantidade de usuários cadastrados no Facebook.
+
+	São centenas de milhões de pessoas ativas especificamente no Facebook, e portanto, fazer a comparação entre todos estes usuários em tempo razoável é uma outra dificuldade a ser enfrentada.
+
+	Deste modo, este projeto se propõe a fornecer um novo meio de encontrar usuários na rede utilizando apenas uma foto, mas que dê algum resultado, seja ele de sucesso ou fracasso, em um tempo hábil, mantendo a satisfação do cliente.
+
+	Existem outros problemas com os quais lidaremos, mas que não temos muito o que fazer para saná-los, tais como: perfil criado sem foto ou que a foto não seja da pessoa, imagens ruins, ou então que não contenha um rosto.
 
 \section{Solução proposta}
+A abordagem tomada foi de criar um aplicativo externo ao Facebook, que utiliza das formas de conexões desenvolvidas e publicadas pela empresa, para interagir e manipular os dados necessários ao nosso projeto.
 
+\subsection*{Definição do espaço:}
+
+	A primeira precaução do grupo foi definir o espaço de busca do algoritmo. Dado que o Facebook registra em torno de 700 milhões de usuários ativos no sistema, fazer a comparação entre todos e retornar um resposta adequada seria improvável, pois algoritmos semelhantes, como o do Picasa, demora 6 dias para comprar 50 mil fotos, tempo totalmente fora do esperado pelo usuário.
+
+	Portanto, partimos da premissa que a pessoa buscada talvez seja um amigo de um amigo do usuário e limitamos nesta fronteira. Se um usuário médio tem em torno de 130 amigos na rede, estaríamos nos propondo a realizar a busca por 16900 usuários (130 x 130) no caso médio. Esta abordagem nos pareceu bastante favorável, para um retorno satisfatório num tempo adequado.
+
+\subsection*{Graph API:}
+
+	O Facebook disponibiliza uma plataforma de desenvolvimento para qualquer pessoa que esteja interessado em iniciar um programa e utilizar das informações contidas nos perfis dos usuários. Vale ressaltar que nem todos os dados pessoais são públicos, a menos que o usuário habilite para que sejam. Entretanto, ao menos a foto do seu perfil, ponto de interesse do projeto, será visualizável a qualquer um.
+
+	Toda informação está no que eles chamam de grafo social, onde qualquer coisa é um nó, com identificador único, e possue relações com outros nós. Por exemplo, um usuário X é um nó e está conectado com outro usuário Y, também nó, por uma relação de amizade. São nós: usuários, eventos, fotos, páginas e etc. E são conexões: amizade, participação em eventos, marcação em fotos e outros.
+
+	Tudo isto está disposto numa arquitetura de JSON facilmente entendida. Um JSON é composto por uma propriedade e seu valor. Ou seja, para um usuário teremos, por exemplo, a propriedade nome e o seu valor, seu nome.
+
+\subsection*{Python:}
+
+	Com as informações obtidas do Graph API, e conhecendo sua estrutura formada por JSON, optamos por utilizar python para desenvolvimento. Se mostrou interessante num primeiro momento, pela grande facilidade de realizar conexões com o Facebook e de manipular as respostas recebidas em formato JSON.
+
+	Porém, por ser uma linguagem interpretada, ganhamos em simplicidade e perdemos em processamento, pois uma linguagem compilada seria mais veloz.
+
+
+\subsection*{PCA:}
+
+\begin{equation}
+\lambda_{k}=\frac{1}{M}\sum_{n=1}^{M}(u_k^T\Phi_n)^2
+\end{equation}
+
+
+\begin{equation}
+u_l^Tu_k=\delta_{lk}=\left \{
+  \begin{array}{l l}
+    1, & \quad \text{se $l=k$} \\
+    0, & \quad \text{caso contrário}\\
+  \end{array}
+\right.
+\end{equation}
+
+
+
+\begin{equation}
+C=\frac{1}{M}\sum_{n=1}^{M}(\Phi_n\Phi_n^T)= AA^T
+\end{equation}
+
+
+\begin{equation}
+A^TAv_i=\mu_iv_i
+\end{equation}
+
+
+
+\begin{equation}
+AA^TAv_i=\mu_iAv_i
+\end{equation}
+
+
+
+\begin{equation}
+u_l=\sum_{k=1}^{M}(v_{lk}\Phi_k) \quad\quad\quad l = 1,...,M
+\end{equation}
+
+
+\begin{equation}
+\omega_k=u_k^T(\Gamma-\Psi)
+\end{equation}
+
+
+
+\begin{equation}
+\epsilon_k^2=\|\Omega-\Omega_k\|^2
+\end{equation}
+
+
+\begin{equation}
+\epsilon^2=\|\Phi-\Phi_f\|^2
+\end{equation}
+
+\subsection*{Interface:}
 \section{Exprerimentos}
 
 \section{Conclusões}

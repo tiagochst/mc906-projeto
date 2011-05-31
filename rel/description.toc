@@ -2,5 +2,5 @@
 \contentsline {section}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o e Motiva\IeC {\c c}\IeC {\~a}o}{2}
 \contentsline {section}{\numberline {2}O problema}{3}
 \contentsline {section}{\numberline {3}Solu\IeC {\c c}\IeC {\~a}o proposta}{4}
-\contentsline {section}{\numberline {4}Exprerimentos}{4}
-\contentsline {section}{\numberline {5}Conclus\IeC {\~o}es}{4}
+\contentsline {section}{\numberline {4}Exprerimentos}{6}
+\contentsline {section}{\numberline {5}Conclus\IeC {\~o}es}{6}
