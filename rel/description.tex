@@ -18,8 +18,11 @@
 \usepackage{setspace}
 \usepackage{verbatim}
 \usepackage{amsmath}
+\usepackage{enumitem}
 \include{abaco} 
 
+\renewcommand{\labelenumi}{\arabic{enumi}.}
+\renewcommand{\labelenumii}{\arabic{enumi}. \arabic{enumii}}
 
 \onehalfspacing
 \begin{document}
@@ -70,7 +73,7 @@
   
   Não obstante as dificuldade de se comparar faces, através da
   utilização do PCA conseguiu-se para faces retiradas de fotos
-  diferentes dos perfis de cada 80 fotos encontrar 50, por outro
+  diferentes dos perfis localizar algumas, por outro
   lado,se a imagem fornecida é a mesma do perfil há um grande
   valor de acerto.
 \end{abstract}
@@ -80,77 +83,75 @@
 \doublespacing
 
 \section{Introdução e Motivação}
-Rede social é uma estrutura composta por indivíduos ou organizações, chamados de nós, que se conectam por um ou vários tipos de relações, tais como amizade, parentesco, interesses em comum, entre outras.
 
-O Facebook é uma rede social gratuita, fundada em 2004, e atualmente possui mais de 700 milhões de usuários ativos.
+	Rede social é uma estrutura composta por indivíduos ou organizações, chamados de nós, que se conectam por um ou vários tipos de relações, tais como amizade, parentesco, interesses em comum, entre outras.
+	
+	O Facebook é uma rede social gratuita, fundada em 2004, e atualmente possui mais de 700 milhões de usuários ativos.
 
-Uma pessoa pode criar um perfil na rede social, tornando-se um usuário do sistema. Para a criação de um perfil, ela deve fornecer informações pessoais como nome, localização, endereço eletrônico, e outras que desejar. Entre as opções, o usuário pode fornecer uma foto para ser mostrada no perfil, que qualquer outro usuário terá acesso irrestrito e a possibilidade de visualizá-la. Ainda assim, esta é uma prática bastante utilizada pela maioria dos usuários, pois proporciona fácil reconhecimento pelas demais pessoas. Além disso, o usuário pode colocar outras fotos pessoais, para as quais controlará o acesso, deixando restrito, por exemplo, apenas para aqueles que fazem parte da sua rede de relacionamentos no sistema.
+	Qualquer pessoa pode ter um perfil no Facebook, tornando-se um usuário do sistema. Para criar de um perfil, ela deve fornecer informações pessoais como nome, localização, endereço eletrônico, e outras que desejar. Entre as opções, o usuário pode também fornecer uma foto para ser mostrada no perfil, que qualquer outro usuário terá acesso irrestrito para visualizá-la. Mesmo sem ter controle sobre a sua foto de perfil, esta é uma prática bastante utilizada pela maioria dos usuários, pois proporciona fácil reconhecimento para outros usuários. Além disso, o usuário pode colocar outras fotos pessoais, para as quais controlará o acesso, deixando restrito, por exemplo, apenas para aqueles que fazem parte da sua rede de relacionamentos no sistema.
 
-Pelo próprio intuito da rede, um usuário cadastrado quer se conectar e se relacionar virtualmente com as pessoas que conhece, ou até mesmo conhecer pessoas novas, quando algum interesse mútuo ocorre.
+	Pelo próprio intuito da rede, um usuário cadastrado quer se conectar e se relacionar virtualmente com as pessoas que conhece, ou até mesmo conhecer pessoas novas, quando algum interesse mútuo ocorre.
 
-Desta forma, o Facebook tem algumas ferramentas à disposição dos usuários, que permitem pessoas serem encontradas por outras usando alguma informação, tal como nome, endereço eletrônico ou endereço físico.
+	Desta forma, o Facebook tem algumas ferramentas à disposição dos usuários, que permitem que pessoas sejam encontradas por outras usando alguma informação, tal como nome, endereço eletrônico ou endereço físico.
 
-Por isso, a ambição do projeto está em criar uma nova ferramenta, um novo meio para que as pessoas se encontrem e se conheçam. Apesar do Facebook ter bons buscadores que encontram facilmente uma pessoa, precisamos sempre ter alguma informação da pessoa, que podemos não saber e não conseguir obter rapidamente. Contudo, podemos ter uma foto, e é neste caso que entra a nossa proposta de solução: buscar um perfil dado uma foto.
+	Por isso, a ambição do projeto está em criar uma nova ferramenta, um novo meio para que as pessoas se encontrem e se conheçam. Pois, apesar do Facebook ter bons buscadores que encontram facilmente uma pessoa, precisamos sempre ter alguma informação da pessoa, que podemos não saber e não conseguir obter rapidamente. Contudo, podemos ter uma foto, e é neste caso que entra a nossa proposta de solução: buscar um perfil dado uma foto.
 \newpage
 \section{O problema}
-Participar ativamente de uma rede social, tal qual o Facebook, está muito ligado em encontrar seus amigos online e fazer novos amigos, para assim trocar mensagens com os usuários, participar de eventos, estar presente em grupos, entre outras possibilidades. Por conseguinte, o problema consiste em conectar estes usuários, de modo que amigos recentes ou velhos amigos possam ser encontrados facilmente.
+	Participar ativamente de uma rede social, tal qual o Facebook, está muito ligado em encontrar seus amigos online e fazer novos amigos, para assim trocar mensagens com os usuários, participar de eventos, estar presente em grupos, entre outras possibilidades. Por conseguinte, o problema está em conectar estes usuários, de modo que amigos recentes ou velhos amigos possam ser encontrados facilmente.
 
-É esperado que uma pessoa saiba, ou tenha anotado em algum lugar, informações básicas sobre seus amigos. Porém, nem sempre nos recordamos ou temos estes dados em mãos. Por exemplo, você acabou de conhecer uma pessoa, que por falta de tempo ou por distração, não perguntou o nome dela. Mas, como estavam numa festa e você tirou diversas fotos, acabou reconhecendo ela em uma das diversas fotos que nem se lembra de ter tirado. Assim, com as atuais ferramentas que o Facebook disponibiliza, você não seria capaz de encontrá-la facilmente, pois não sabe nada sobre a pessoa.
+	É esperado que uma pessoa saiba, ou tenha anotado em algum lugar, informações básicas sobre seus amigos. Porém, nem sempre nos recordamos ou temos estes dados em mãos. Por exemplo, você acabou de conhecer uma pessoa, que por falta de tempo ou por distração, não perguntou o nome dela. Mas, como estavam numa festa e você tirou diversas fotos, acabou reconhecendo ela em uma das fotos que nem se lembra de ter tirado. Assim, com as atuais ferramentas que o Facebook disponibiliza, você não seria capaz de encontrá-la facilmente, pois não sabe nada sobre a pessoa.
 
-A proposta deste projeto é incluir uma ferramenta diferente, que não precisa de qualquer tipo de informação sobre o indivíduo, mas que seja capaz de encontrá-lo por comparação da imagem alvo, esta que você possui na sua câmera, com as imagens dos perfis dos usuários.
+A proposta deste projeto é incluir uma ferramenta diferente, que não precisa de qualquer tipo de informação sobre o indivíduo, mas que seja capaz de encontrá-lo por comparação entre a imagem alvo, esta que você possui na sua câmera, com as imagens dos perfis dos usuários.
 
-Ou seja, o usuário fornece a foto com o rosto da pessoa que deseja buscar, o sistema (e eventualmente um aplicativo) varre a rede procurando as imagens mais semelhantes e retorna os perfis que contêm os rostos mais parecidos, e eventualmente, o perfil correto do usuário buscado.
+	Ou seja, o usuário fornece a foto com o rosto da pessoa que deseja buscar, o sistema varre a rede procurando as imagens mais semelhantes, e retorna os perfis que contêm os rostos mais parecidos, e eventualmente, o perfil correto do usuário buscado.
 
-De início, surgem dois problemas: encontrar uma face dado uma imagem e encontrar esta face em outras imagens. Dado que temos isto, uma ferramenta capaz de reconhecer as características de um ser humano e recortar seu rosto, e outra que faça a comparação das faces detectadas, surge um problema bônus: a imensa quantidade de usuários cadastrados no Facebook.
+	De início, surgem dois problemas: encontrar uma face dado uma imagem e encontrar esta face em outras imagens. Dado que temos isto, uma ferramenta capaz de reconhecer as características de um ser humano e recortar seu rosto, e outra que faça a comparação das faces detectadas, surge um problema bônus: a imensa quantidade de usuários cadastrados no Facebook.
 
-São centenas de milhões de pessoas ativas especificamente no Facebook, e portanto, fazer a comparação entre todos estes usuários em tempo razoável é uma outra dificuldade a ser enfrentada.
+	São centenas de milhões de pessoas ativas especificamente no Facebook, e portanto, fazer a comparação entre todos estes usuários em tempo razoável é uma outra dificuldade que enfrentamos.
 
-Deste modo, este projeto se propõe a fornecer um novo meio de encontrar usuários na rede utilizando apenas uma foto, mas que dê algum resultado, seja ele de sucesso ou fracasso, em um tempo hábil, mantendo a satisfação do cliente.
+	Deste modo, este projeto se propõe a fornecer um novo meio de encontrar usuários na rede utilizando apenas uma foto, mas que dê algum resultado, seja ele de sucesso ou fracasso, em um tempo hábil, mantendo a satisfação do cliente.
 
-Existem outros problemas com os quais lidaremos, mas que não temos muito o que fazer para saná-los, tais como: perfil criado sem foto ou que a foto não seja da pessoa, imagens ruins, ou então que não contenha um rosto.
+	Existem outros problemas com os quais lidaremos, mas que não
+        temos muito o que fazer para saná-los, tais como: perfil
+        criado sem foto ou que a foto não seja da pessoa, imagens
+        ruins, ou então que não contenha um rosto, e etc.
 
 \section{Solução proposta}
 A abordagem tomada foi de criar um aplicativo externo ao Facebook, que utiliza das formas de conexões desenvolvidas e publicadas pela empresa, para interagir e manipular os dados necessários ao nosso projeto.
 
 \subsection*{Definição do espaço:}
 
-A primeira precaução do grupo foi definir o espaço de busca do algoritmo. Dado que o Facebook registra em torno de 700 milhões de usuários ativos no sistema, fazer a comparação entre todos e retornar um resposta adequada seria improvável, pois algoritmos semelhantes, como o do Picasa, demora 6 dias para comprar 50 mil fotos, tempo totalmente fora do esperado pelo usuário.
+	A primeira precaução do grupo foi definir o espaço de busca do algoritmo. Dado que o Facebook registra em torno de 700 milhões de usuários ativos no sistema, fazer a comparação entre todos e retornar uma resposta adequada seria improvável, pois algoritmos semelhantes, como o do Picasa, demora 6 dias para comparar 50 mil fotos, tempo totalmente fora do esperado pelo usuário.
 
-Portanto, partimos da premissa que a pessoa buscada talvez seja um amigo de um amigo do usuário e limitamos nesta fronteira. Se um usuário médio tem em torno de 130 amigos na rede, estaríamos nos propondo a realizar a busca por 16900 usuários (130 x 130) no caso médio. Esta abordagem nos pareceu bastante favorável, para um retorno satisfatório num tempo adequado.
+	Portanto, partimos da premissa que a pessoa buscada talvez
+        seja um amigo de um amigo do usuário e limitamos nesta
+        fronteira. De acordo com estudos realizados, um usuário médio
+        tem em torno de 130 amigos na rede. Logo, estaríamos nos
+        propondo a realizar a busca por 16900 usuários (130 x 130) no
+        caso médio. Esta abordagem nos pareceu bastante favorável,
+        para um retorno satisfatório num tempo adequado.
 
 \subsection*{Graph API:}
-
 O Facebook disponibiliza uma plataforma de desenvolvimento para qualquer pessoa que esteja interessado em iniciar um programa e utilizar das informações contidas nos perfis dos usuários. Vale ressaltar que nem todos os dados pessoais são públicos, a menos que o usuário habilite para que sejam. Entretanto, ao menos a foto do seu perfil, ponto de interesse do projeto, será visualizável a qualquer um.
 
-Toda informação está no que eles chamam de grafo social, onde qualquer coisa é um nó, com identificador único, e possue relações com outros nós. Por exemplo, um usuário X é um nó e está conectado com outro usuário Y, também nó, por uma relação de amizade. São nós: usuários, eventos, fotos, páginas e etc. E são conexões: amizade, participação em eventos, marcação em fotos e outros.
+	Toda informação está no que eles chamam de grafo social, onde qualquer coisa é um nó, com identificador único, e possui relações com outros nós. Por exemplo, um usuário X é um nó e está conectado a outro usuário Y, também nó, por uma relação de amizade. São nós: usuários, eventos, fotos, páginas e etc. E são conexões: amizade, participação em eventos, marcação em fotos e outros.
 
-Tudo isto está disposto numa arquitetura de JSON facilmente entendida. Um JSON é composto por uma propriedade e seu valor. Ou seja, para um usuário teremos, por exemplo, a propriedade nome e o seu valor, seu nome.
-
-\subsection*{Python:}
-
-Com as informações obtidas do Graph API, e conhecendo sua estrutura formada por JSON, optamos por utilizar python para desenvolvimento. Se mostrou interessante num primeiro momento, pela grande facilidade de realizar conexões com o Facebook e de manipular as respostas recebidas em formato JSON.
-
-Porém, por ser uma linguagem interpretada, ganhamos em simplicidade e perdemos em processamento, pois uma linguagem compilada seria mais veloz.
+	Tudo isto está disposto numa arquitetura de JSON facilmente
+        entendida. Um JSON é composto por uma propriedade e seu
+        valor. Ou seja, para um usuário teremos, por exemplo, a
+        propriedade nome e o seu valor, seu nome.
 
 
 \subsection*{PCA:}
+	PCA (Principal Component Analysis) é um método da família de “análise de dados” que consiste em transformar variáveis correlacionadas em novas variáveis independentes umas das outras. Essas novas variáveis são chamadas de “componentes principais”, ou eixos. Elas permitem reduzir a informação a um número de variáveis mais limitado que o inicial.
 
-O PCA (Principal component analysis) busca um modelo computacional que
-melhor descreve uma face extraindo as informações mais relevantes de
-uma face. A abordagem de autofaces é um método PCA, em que um pequeno
-conjunto de figuras características são usadas para descrever a
-variação entre as imagens de faces.
+	Encontrando os componentes principais da distribuição das faces, ou os autovetores da matriz de covariância do conjunto das imagens (tratando cada imagem como um ponto num espaço de dimensão alta), obtemos as chamadas autofaces.
 
-O objetivo é encontrar autovetores(autofaces) da matriz de covariância
-da distribuição, calibrado através de treino que utiliza um conjunto
-de imagens de faces. Posteriormente, toda imagem é representada pela
-combinação linear desses autovetores.
+	As autofaces resultantes podem ser pensadas como um conjunto de características que, juntas, formam a base do espaço das faces. Cada rosto, pode ser, então, projetado sobre esses vetores, de modo que agora cada imagem pode ser armazenada como uma simples combinação linear.
 
-O reconhecimento é realizado através da projeção de uma nova imagem no
-subespaço calibrado pelas autofaces e, então, calssifica-se a face
-comparando a posição da face no espaço com a posição das faces conhecidas.
-Abaixo segue a explicação mais detalhada do processo:
+Para o reconhecimento, projeçeta-se uma nova imagem nesse mesmo espaço formado pelas autofaces e, então, calssifica-se a face comparando sua posição no espaço com a posição dos rostos conhecidos.
 
+Abaixo segue a explicação mais detalhada do processo.
 \subsubsection*{Treinamento:}
 
 Sejam $\Gamma_1, \Gamma_2, \Gamma_3, \ldots, \Gamma_m$ as imagens de
@@ -185,10 +186,10 @@ Os vetores $u_k$ e escalares $\lambda_k$ são os autovalores e autovetores da ma
 
 onde $A = [ \Phi_1 \Phi_2 \ldots \Phi_m ]$, matriz na qual cada coluna
 é uma das faces de treinamento. Supondo que cada imagem de face é
-composta por N pixels, esta matriz C será, então, $N^2 x
+composta por N pixels, esta matriz C será, então, $N^2 \times
 N^2$. Todavia, se o número de rostos for bem menor do que o tamanho de
-cada foto ($M << N$), podemos simplificar os cálculos, se
-considerarmos a matriz $A^T * A$ (A transposta vezes A):
+cada foto ($M \ll N$), podemos simplificar os cálculos, se
+considerarmos a matriz $A^TA$:
 
 \begin{equation}
   A^TAv_i=\mu_iv_i
@@ -196,14 +197,14 @@ considerarmos a matriz $A^T * A$ (A transposta vezes A):
 
 
 Nesse caso, $\mu_i$ e $v_i$ são, respectivamente, os autovalores e
-autovetores de $A^T * A$. Multiplicando ambos os lados por A, temos:
+autovetores de $A^TA$. Multiplicando ambos os lados por A, temos:
 
 \begin{equation}
   AA^TAv_i=\mu_iAv_i
 \end{equation}
 
 
-De onde vemos que $A*v_i$ são os autovetores da matriz original $C = A.A^T$.
+De onde vemos que $Av_i$ são os autovetores da matriz original $C = AA^T$.
 
 Se, por exemplo, temos 300 imagens, cada uma com 100 x 100 pixels,
 teremos, então, que resolver uma matriz de $9*10^4$ elementos, ao
@@ -244,12 +245,56 @@ então, a distância Euclidiana dessa classe às classes reconhecidas:
 
 Basta, enfim, encontrar a classe c tal que o mínimo das distâncias $\epsilon_c$ é menor do que um limiar escolhido $\theta_k$.
 
-\begin{equation}
-  \epsilon^2=\|\Phi-\Phi_f\|^2
-\end{equation}
+%\begin{equation}
+%  \epsilon^2=\|\Phi-\Phi_f\|^2
+%\end{equation}
+
+\subsection*{Desenvolvimento:}
+	Com as informações obtidas do Graph API, e conhecendo sua estrutura formada por JSON, optamos por utilizar Python para desenvolvimento. Se mostrou interessante num primeiro momento, pela grande facilidade de realizar conexões com o Facebook e de manipular as respostas recebidas em formato JSON.
+
+	Então, inicialmente, escrevemos nosso módulo “facebook” (em facebook.py), no qual colocamos todas as funções que se comunicam com o grafo social. Entre elas, temos as genéricas get\underline{ }user\underline{ }connection e batch\underline{ }request. A primeira realiza um GET simples de um único elemento do grafo, tal como nome, lista de amigos ou lista de fotos de um único usuário; a segunda, por sua vez, mostrou-se necessária para obtermos mais informações em uma única conexão com o servidor: pode-se agrupar no máximo 20 requisições simples em um único pacote e esses dados são obtidos através de um único POST. As demais funções apenas usam essas duas para obter todos os dados necessários para nosso sistema (amigos, foto de perfil e fotos marcadas, por exemplo).
+
+	Em seguida, criamos o módulo “eigenfaces”, que utiliza o pacote Numpy (para cálculos otimizados em vetores e matrizes) na obtenção da face média, dos autovalores e autovetores representando o espaço de faces, da projeção de uma imagem nesse espaço e das distâncias de uma face a todas as classes conhecidas.
+
+	A intenção era fazer a implementação do detector de faces utilizando C++, devido à boa documentação do pacote OpenCV disponível. Mas, desde a versão mais nova (2.2) da biblioteca, uma interface Python que cobre todas as funções C++ também é oferecida. Optamos, então, por trabalhar com apenas uma linguagem nesse momento de implementação do primeiro protótipo.
+
+Apesar de tudo, Python é uma linguagem interpretada, e por isso ganhamos em simplicidade e tempo de codificação, mas perdemos em processamento, dado que uma linguagem compilada seria mais veloz.
+
+	Então, criamos as funções auxiliares detect\underline{ }image\underline{ }faces, que retorna a posição de faces em uma imagem; crop\underline{ }face\underline{ }image, que recorta um retângulo de uma imagem; crop\underline{ }tagged\underline{ }photo, que, dado um link e uma tag retornados por get\underline{ }user\underline{ }tags (do módulo “facebook”), obtém a imagem e recorta apenas o local onde o usuário está possivelmente marcado; save\underline{ }user\underline{ }face, que, dado um número de usuário, tenta obter uma imagem de seu rosto; e iniciamos nosso sistema “facefinder”, que realiza os seguintes passos para uma imagem de entrada $\Gamma$:
+
+\begin{enumerate}
+	\item Cria diretórios “pictures”, que guarda as fotos originais baixadas de cada usuário, e “faces”, que guarda apenas as faces recortadas e ajustadas dos mesmos;
+	\item Obtém a lista dos amigos de amigos do usuário;
+	\item Para cada usuário na lista, lança uma thread iniciando
+          em save\underline{ }user\underline{ }face, que
+          especificamente:
+          \begin{enumerate}
+          \item Não faz nada se a face do usuário já está em disco;
+          \item Se nenhuma foto do usuário está presente, baixa a
+            foto de perfil;	
+          \item Procura uma face na imagem corrente, preprocessando e retornando-a se for encontrada;
+          \item Se face não foi encontrada, pega uma foto em que
+            o usuário foi marcado e repete a partir de 3.3;
+          \end{enumerate}
+	\item Carrega espaço de faces se um existir OU obtém um espaço de faces a partir de imagens pré-determinadas numa pasta “training” OU obtém um espaço de faces a partir das obtidas baixadas por 3;
+	\item Projeta $\Gamma$ e as faces obtidas em 4 nesse espaço;
+	\item Encotra as classes mais próximas de $\Gamma$.
+\end{enumerate}
+	Por fim, utilizamos o pacote Pygame, que oferece módulos para tratamento de eventos periféricos e para ambientes gráficos, para criar uma interface de fácil utilização para o usuário, descrita no próximo tópico.
 
 \subsection*{Interface:}
-O sistema requer apenas que o usuário forneça uma foto contendo a pessoa que deseja procurar. A partir da foto de entrada é feito uma busca por faces presentes nela, e para cada face encontrada é dada a possibilidade de escolher qual rosto deverá ser procurado na rede social. Caso nenhuma face seja detectada, o usuário tem a possibilidade de designar a face através de um retângulo ajustável nas proporções 4:3 (ver figura 1).
+O sistema requer apenas que o usuário forneça uma foto contendo a pessoa que deseja procurar. A partir da foto de entrada é feito uma busca por faces presentes nela, e para cada face encontrada é dada a possibilidade de escolher qual rosto deverá ser procurado na rede social (ver figura 1). 
+
+\begin{figure}[h!]
+  \begin{center}
+    \includegraphics[scale=0.3]{Screenshot-Face}
+    \caption{Seleção de faces}
+  \end{center}
+\end{figure}
+
+Caso nenhuma face seja detectada, o usuário tem a possibilidade de
+designar a face através de um retângulo ajustável nas proporções 4:3
+(ver figura 2).
 
 \begin{figure}[h!]
   \begin{center}
@@ -258,81 +303,72 @@ O sistema requer apenas que o usuário forneça uma foto contendo a pessoa que d
   \end{center}
 \end{figure}
 
-Após a seleção da face, o usuário aguarda um breve instante, até que o aplicativo faça a comparação e busca, e assim o resultado será mostrado numa janela. Optamos por mostrar as 6 pessoas com rostos mais parecidos ao rosto alvo, enviado pelo usuário (ver figura 2).
+Após a seleção da face, o usuário aguarda um breve instante, até que o aplicativo faça a comparação e busca, e assim o resultado será mostrado numa janela. Optamos por mostrar as 6 pessoas com rostos mais parecidos ao rosto alvo, enviado pelo usuário (ver figura 3).
 
 O usuário, então,  escolhe qual dos perfis mostrados é a pessoa que está procurando. No caso em que o perfil é corretamente identificado, o usuário pode simplesmente clicar sobre a foto desejada e ele será redirecionado para a página do perfil dessa pessoa.
 
 No caso de fracasso da busca, o usuário não encontrará o perfil correto entre os 6 mais parecidos, seja porque a pessoa não possui um perfil ou porque o algoritmo não conseguiu encontrar uma foto semelhante. Neste caso, basta fechar a janela.
 
-\begin{center}
   \begin{figure}[h!]
-    \includegraphics[scale=0.5]{6maisproximos}
-    \caption{Faces mais próximas}
+    \begin{center}
+      \includegraphics[scale=0.4]{6maisproximos}
+      \caption{Faces mais próximas}
+    \end{center}
   \end{figure}
-\end{center}
 
-\section{Exprerimentos}
+
+\section{Exprerimentos}%OK
 Ao longo do desenvolvimento do projeto, fizemos algumas medições para encontrarmos
-rapidamente qual seriam os possíveis gargalos do aplicativo. E
-encontramos problemas na definição do número de usuários que seriam
-utilizados na busca, no ajuste da ferramenta que realiza detecção de
-faces e no próprio algoritmo do PCA.
+rapidamente qual seriam os possíveis gargalos do aplicativo. E encontramos problemas na definição do número de usuários que seriam utilizados na busca, no ajuste da ferramenta que realiza detecção de faces e no próprio algoritmo do PCA.
 
-\subsubsection*{Definição de espaço}
+\subsubsection*{Definição de espaço}%OK
+Como descrito, a primeira abordagem que adotamos foi definir o espaço que iríamos fazer as buscas. Para isto, implementamos o algoritmo e executamos algumas vezes.
 
-Como descrito, a primeira abordagem que adotamos foi definir o espaço
-que iríamos fazer as buscas. Para isto, implementamos o algoritmo e
-executamos algumas vezes.
+	A primeira versão baixava fotos de perfis do Facebook sequencialmente, o que casou um certo espanto, pois o tempo gasto para baixar 2000 fotos era de aproximadamente 70 minutos. Completamente inviável para a nossa proposta de realizar a busca completa em tempo hábil.
 
-A primeira versão baixava fotos de perfis do Facebook
-sequencialmente, o que casou um certo espanto, pois o tempo
-gasto para baixar 2000 fotos era de aproximadamente 70
-minutos. Completamente inviável para a nossa proposta de
-realizar a busca completa em tempo hábil.
-
-Obviamente, precisávamos fazer este processo em paralelo. E
-assim, utilizando threads e requisições em lote, o tempo
-baixou de 70 minutos para 1 minuto e meio, também para 2000
-fotos. De modo que utilizando o usuário médio, com 130 amigos,
-seria razoável realizar a busca apenas entre os amigos de seus
-amigos, o que nos daria aproximadamente 17000 pessoas. Ou
-seja, por volta de 13 minutos para obter as fotos.
+	Obviamente, precisávamos fazer este processo em paralelo. E assim, utilizando threads e requisições em lote, o tempo baixou de 70 minutos para 1 minuto e meio, também para 2000 fotos. De modo que utilizando o usuário médio, com 130 amigos, seria razoável realizar a busca apenas entre os amigos de seus amigos, o que nos daria aproximadamente 17000 pessoas. Ou seja, por volta de 13 minutos para obter as fotos.
 
 Para esta etapa, parecia razoável, mas este tempo se mostrou ainda
 menor no decorrer da implementação.
 
-\subsubsection*{Detecção de faces}
+\subsubsection*{Detecção de faces} %OK
 
-Com as fotos já em disco, precisávamos filtrá-las de forma a
-retirar elementos que interferissem mais do que desejaríamos
-no resultado da busca. Ou seja, recortar e guardar apenas os
-rostos, caso tivessem.
+	Com as fotos já em disco, precisávamos filtrá-las de forma a retirar elementos que interferissem mais do que desejaríamos no resultado da busca. Ou seja, recortar e guardar apenas os rostos, caso tivessem.
 
-Optamos por utilizar o detector de faces disponível na
-biblioteca do OpenCV, mas não para C++, que é mais comum, e sim para python.
+	Optamos por utilizar o detector de faces disponível na biblioteca do OpenCV, mas não para C++, que é mais comum, e sim para python.
 
-Nesta etapa, o foco mudou do tempo gasto para qualidade do
-resultado. Pois no caso da definição de espaço, estávamos
-interessados em diminuir o intervalo de tempo necessário para
-baixar fotos, e na detecção de faces estamos preocupados com a
-qualidade das fotos resultantes. Isto é, precisamos encontrar
-o maior número de faces, mas não queremos encontrar imagens que não sejam faces.
+	Nesta etapa, o foco mudou do tempo gasto para qualidade do resultado. Pois no caso da definição de espaço, estávamos interessados em diminuir o intervalo de tempo necessário para baixar fotos, e na detecção de faces estamos preocupados com a qualidade das fotos resultantes. Isto é, precisamos encontrar o maior número de faces, mas não queremos encontrar imagens que não sejam faces.
 
-Conseguimos um bom resultado neste processo. Aproximadamente,
-das 2000 fotos que continuamos usando para teste, eram
-encontrados em torno de 1350 fotos, ou seja, um aproveitamento
-de 67,5\%.
+	Conseguimos um bom resultado neste processo. Aproximadamente, das 2000 fotos que continuamos usando para teste, eram encontrados em torno de 1350 fotos, ou seja, um aproveitamento de 67,5\%.
 
-Porém, um outro dado interessante é quantas imagens tinham
-realmente rostos. E nas 1350 que o aplicativo dizia ter um
-rosto, em torno de 20 não era verdade. Novamente, isto nos dá
-um acerto em torno de 85\%.
+	Porém, um outro dado interessante é quantas imagens tinham realmente rostos. E nas 1350 que o aplicativo dizia ter um rosto, em torno de 20 não era verdade. Novamente, isto nos dá um acerto em torno de 85\%.
 
-Considerando os dois resultados, nosso aplicativo obteve uma
-taxa de 57\% de acerto ao detectar e recortar rostos. O que
-nos pareceu muito bom, pois não conseguimos controlar as fotos
-dos usuários, de modo que ele sempre tenha uma foto boa e de face.
+	Considerando os dois resultados, nosso aplicativo obteve uma taxa de 57\% de acerto ao detectar e recortar rostos. O que nos pareceu muito bom, pois não conseguimos controlar as fotos dos usuários, de modo que ele sempre tenha uma foto boa e de face.
 
+
+\subsubsection*{Reconhecimento}
+
+Após aplicar o algoritmo para encontrar os rostos, trabalharemos nesta etapa somente com as imagens geradas pelo recorte das faces detectadas no passo anterior. Porém, devido a algumas limitações do PCA, precisamos fazer alguns tratamento nas imagens.
+
+	O primeiro tratamento é simples: apenas transformamos as fotos da escala RGB em escala de tons de cinza. Para reduzirmos a interferência das tonalidades nos resultados.
+
+	Outro procedimento básico é deixar todas as imagens no mesmo tamanho. Faz mais sentido comparar fotos de tamanhos idênticos do que fotos muito maiores do que outras, pois o PCA é variante à escala.
+
+	E um problema menos intuitivo é a exposição das imagens à iluminação. O resultado final é muito atrapalhado por comparação entre fotos com tons de luz diferentes. Por isto, aplicamos uma equalização do histograma, reduzindo a dependência da iluminação.
+
+	Considerando tudo isto, trabalhamos com três resultados possíveis:
+
+	1) A foto alvo fornecida é a mesma do perfil. Neste caso, o nosso algoritmo funcionou 100\% das vezes, retornando sempre o perfil do usuário buscado entre os 6 mais semelhantes. Vale ressaltar aqui, que utilizamos os usuários com fotos boas, ou seja, que tiveram suas fotos tratadas pela etapa anterior, de detecção de rostos.
+
+	Para imagens definidas como "ruins", não podemos traçar uma performance, pois nem ao menos conseguimos detectar um rosto na foto.
+
+	2) A foto alvo fornecida é uma foto "boa" e diferente da do perfil. Encontramos uma certa dificuldade neste caso, pois podemos sofrer grande influência de elementos externo às fotos. Exemplo, o usuário faz poses diferentes na foto, inclinando um pouco pra esquerda e um pouco para direita noutra foto.
+
+	Tivemos um acerto próximo a 25\% no reconhecimento com fotos "boas", ou seja, com rosto detectado.
+
+	3) A foto alvo fornecida é "boa", mas a foto do perfi é "ruim". Aqui, designamos fotos de perfis "ruins" para vários casos: usuário não possui perfil, perfil sem foto e sem qualquer outra imagem, fotos que não contém rostos, seja por qualidade ruim ou porque não é uma foto de uma pessoa, entre outros casos.
+
+	Nesta vertente, o aplicativo "falha" 100\%.
 \section{Conclusões}
 
 Apesar dos problemas encontrados, a solução proposta utilizando PCA
