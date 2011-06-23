@@ -19,6 +19,13 @@
 \usepackage{verbatim}
 \usepackage{amsmath}
 \usepackage{enumitem}
+
+
+% Gráficos
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.3}
+\usepgfplotslibrary{groupplots}
+
 \include{abaco} 
 
 \renewcommand{\labelenumi}{\arabic{enumi}.}
@@ -476,14 +483,78 @@ Distância & ID perfil \\
 
 \end{enumerate}
 
+\subsubsection*{Testes }
+
+Por fim, realizamos um teste final rodando o programa a partir de 3 usuários diferentes. Para isso, escolhemos 100 usuários aleatoriamente que estão presentes nos conjuntos de amigos de amigos dos 3 usuários. Para os 100 usuários, baixamos suas fotos de perfil e uma foto aleatória em que foi marcado. Utilizamos, então, a ferramenta "facelector" em cada uma das fotos marcadas para recortar somente a face do usuário que nos interessa (o mesmo que teve sua foto de perfil baixada). A tabela abaixo indica quantas fotos e quantas faces foram utilizadas para classificação nos experimentos.
+
+\begin{table}[h!]
+\begin{center}
+\caption{Número de faces e fotos para os usuários}
+\begin{tabular}{ccc}
+\hline
+Usuário & n° fotos & n° faces \\
+\hline
+\hline
+1 & 7200 & 4000 \\
+2 & 3800 & 2200 \\
+3 & 28900 & 15300 
+\end{tabular}
+\end{center}
+\end{table}
+
+Foram realizados quatro diferentes testes, nos quais as 100 faces recortadas foram usadas como entrada para o programa, alterando-se as fotos utilizadas no treinamento e a quantidade de autofaces mantidas: um teste com autovetores representando 75\% da energia e 370 faces "boas" escolhidas manualmente para treinamento, outro com 90\% e as mesmas faces "boas", outro com 75\% e 1000 faces escolhidas aleatoriamente para treinamento e, por fim, um com 90\% e as mesmas 1000 faces escolhidas aleatoriamente. Analisamos, em cada teste, qual seria a porcentagem Y de acerto ao retornar as X classes que o programa considerou as mais próximas da face alvo.
+
+Fixando o conjunto de treinamento e variando o número de autofaces escolhidas, observamos que um maior número de autofaces tem maior porcentagem de acertos para um mesmo número X de classes mais próximas ao alvo. Mantendo fixo o número de autofaces e alterando o conjunto de treinamento, por sua vez, nos mostrou que as 1000 faces escolhidas aleatoriamente tiveram performance melhor do que as 370 faces "boas" (centralizadas, sem óculos e de rosto inteiro), escolhidas manualmente.
+
+No gráfico abaixo, exibimos os resultados para os três diferentes usuários com fotos aleatórias para o treinamento e 75\% de energia. Para um usuário com mais amigos, apesar de ter mais chance da pessoa buscada estar no seu limite, a probabilidade de encontrá-lo é muito baixa. Já para usuários com menor número de amigos, acontece o inverso: menor número de pessoas buscadas e maior probabilidade de encontrá-lo, se ele estiver entre os buscados.
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+	x tick label style={
+		/pgf/number format/1000 sep=},
+	ylabel= Fotos encontradas em \%,
+	enlargelimits=0.15,
+	legend style={at={(0.5,-0.30)},
+		anchor=north,legend columns=-1},
+              nodes near coords,
+	ybar,
+        height=8cm,
+        width=16cm,
+	bar width=7pt,
+        xlabel=Posição,
+        xtick ={1, 2, 3, 4, 5, 6,7,8,9,10},
+        xticklabels={1-10,11-50,51-100,101-200,201-300,301-500,501-1000,1001-2000,2001-3000,3001-Max},
+        xticklabel style={rotate=90}
+        ]
+
+    \addplot  table[x=pos,y=num] {graf/tcs/75albar.txt};
+    \addplot  table[x=pos,y=num] {graf/tcs/75albardoug.txt};
+    \addplot  table[x=pos,y=num] {graf/tcs/75albarcar.txt};
+
+\legend{Usu\'ario 1, Usu\'ario 2, Usu\'ario 3}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\caption{Fotos aleatórias para o treinamento e 75\% de energia}
+\end{figure}
+
 \section{Conclusões}
-Apesar dos problemas encontrados, a solução proposta utilizando PCA atende razoavelmente as expectativas. O algoritmo tem performance excelente quando a foto do perfil é exatamente a buscada, mas possui um resultado apenas razoável quando elas diferem.
+
+Apesar dos problemas encontrados, a solução proposta utilizando PCA
+não atende razoavelmente as expectativas. O algoritmo tem performance
+excelente quando a foto do perfil é exatamente a buscada, mas possui
+um resultado ruim quando elas diferem.
 
 	O aplicativo fica exposto a certas limitações que são inerentes ao problema. Para citar, há casos básicos como a pessoa não possuir perfil; casos em que não conseguimos encontrar um rosto na foto de perfil; e casos nos quais mesmo fazendo a busca por fotos de perfil atuais e fotos marcadas, o algoritmo não consegue encontrar semelhanças entre duas imagens com a mesma face. Neste último, geralmente as fotos possuem características incomuns, tais como rostos virados para lados opostos, iluminação ou contraste diferentes, entre outros elementos.
 
 	Entretanto, essa implementação um tanto quanto “simples”, em um curto período de tempo, já foi suficiente para resolver parte do problema, o que é um convite para atacá-lo mais profundamente. Neste primeiro protótipo, nós focamos em obter uma solução que fosse rápida o bastante ao ser rodada do zero para um único usuário, isto é, que não demore muito ao ter que passar por todas as fases do programa (obtenção de amigos, obtenção de fotos, detecção de faces, análise dos componentes principais, classificação e reconhecimento da face). Assim, muitas de nossas escolhas foram feitas visando esse balanço.
 
-	Porém, num próximo momento, de expansão do sistema, esse deverá servir um grande número de pedidos ao mesmo tempo, para um número cada vez maior de usuários. Para isto, modificações deverão ser feitas para torná-lo escalável e mais preciso. 
+	Porém, num próximo momento, de expansão do sistema, esse
+        deverá servir um grande número de pedidos ao mesmo tempo, para
+        um número cada vez maior de usuários. Para isto, modificações
+        deverão ser feitas para torná-lo escalável e mais preciso. 
 
 Listamos aqui, então, possíveis melhorias e rumos que podemos tomar
 daqui pra frente:
